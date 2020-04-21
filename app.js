@@ -47,7 +47,7 @@ app.delete('/delete_article',(req,res) => {
 
 // Find article by title
 app.post('/find_by_title',(req,res) => {
-    let name = req.body.name;
+    let title = req.body.title;
     db.collection(col_name)
       .find({title:title})
       .toArray((err,result) => {
