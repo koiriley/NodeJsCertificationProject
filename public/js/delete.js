@@ -1,6 +1,6 @@
 $('.delete').click(function() {
     var response = confirm("do you want to delete")
-    title = this.title;
+    title = this.id;
     console.log(response)
     if(response === true){
         $.ajax({
