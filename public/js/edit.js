@@ -5,11 +5,11 @@ var to_be_edited;
             });
         // edit data
         $('.edit').click(function() {
-            id= this.id;
+            title= this.id;
                 $.ajax({
                     type: 'POST',
                     url: '/find_by_title',
-                    data: {"title":id},
+                    data: {"title":title},
                     success: function(data){
                             to_be_edited = data[0].title;
                             $("#edit_title").attr("value", data[0].title);
@@ -31,14 +31,14 @@ var to_be_edited;
             
             // update data
                   $(function(){
-                      $('#update_table').on('click', function(e){
+                      $('#edit_table').on('click', function(e){
                         console.log('x');
-                        var data = $('#update_article').serialize();
+                        var data = $('#edit_article').serialize();
                         debugger;
                         console.log(JSON.stringify(data));
                         e.preventDefault();
                         $.ajax({
-                          url: '/update_article',
+                          url: '/edit_article',
                           type:'PUT',
                           data : data,
                           success: function(data){
