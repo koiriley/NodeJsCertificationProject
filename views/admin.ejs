@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <style>
+            /* Add a black background color to the top navigation */
+            .topnav {
+            background-color: #333;
+            overflow: hidden;
+            /*width: 60%;*/
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto 
+            }
+
+            .topnav h3 {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 19px;
+            }
+            /*.topnav h5 {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 18px 16px;
+            font-weight: lighter;
+            font-size: 14px;
+            }*/
+            .row {
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            /*border-style: solid;
+            border-color: #333;*/
+            }
+            .column1, .column2 {
+            padding-right: 80px;
+            width: 50%;
+            }
+            h2 {
+                padding-bottom: 15px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+            .myinput {
+                width: 200%;
+            }
+            /*.container {
+                max-width: 60%;
+            }*/
+        </style>
+    </head>
+    <body>
+        <div class="topnav">
+            <h3>Git Buckets 24/7 Media Admin</h3>
+            <!--<h5 class="nav-item active">Sign In</h5>-->
+        </div>
+
+        <% if (alert) { %>
+            <h5 style="color:red"><center><%= alert %></center></h5>
+        <% } %>
+
+        <div class="container center_divr">
+            <div class="row">
+
+                <div class="column1">
+                    <form class="center_div" id="user1" method="POST" action="/admin">
+                        <h2><center>REGISTER</center></h2>
+                        <div class="user-form">
+                            <p>
+                                <label>
+                                    Name<br/>
+                                    <input type="text" id="rname" class="myinput" placeholder="Enter your name" name="name" required/>
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Email<br/>
+                                    <input type="text" id="remail" class="myinput" placeholder="Enter your email" name="email" required/>
+                                </label>
+                            </p>
+                                
+                            <p>
+                                <label>
+                                    Password<br/>
+                                    <input type="password" id="rpassword" class="myinput" placeholder="Enter your password" name="password" required></input>
+                                </label>    
+                            </p>
+                            <hr width="85%" align="left"/>
+                            <button type="submit" class="btn btn-info">Register</button>
+                            <button type="button" class="btn btn-warning" onclick="clearRegister()">RESET</button>
+                            <hr width="85%" align="left"/>
+                        </div>
+                    </form>
+                </div>
+            
+                <div class="column2">
+                    <form class="center_div" id="user2" method="POST" action="/admin/login">
+                        <h2><center>LOG IN</center></h2>
+                        <div class="new-user-form">
+                            <p>
+                                <label>
+                                    Email<br/>
+                                    <input type="text" id="lemail" class="myinput" placeholder="Enter your email" name="email" required/>
+                                </label>
+                            </p>
+                                
+                            <p>
+                                <label>
+                                    Password<br/>
+                                    <input type="password" id="lpassword" class="myinput" placeholder="Enter your password" name="password" required></input>
+                                </label>    
+                            </p>
+                            <hr width="85%" align="left"/>
+                            <button type="submit" class="btn btn-success">Log In</button>
+                            <button type="button" class="btn btn-danger" onclick="clearLogIn()">RESET</button>
+                            <hr width="85%" align="left"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script>
+            function clearLogIn() {
+                $('#lemail').val('');
+                $('#lpassword').val('');
+            }
+            function clearRegister() {
+                $('#rname').val('');
+                $('#remail').val('');
+                $('#rpassword').val('');
+            }
+        </script>
+    </body>
+</html>
