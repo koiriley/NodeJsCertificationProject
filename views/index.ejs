@@ -9,14 +9,71 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-        
+
+        <style>
+            /* Add a black background color to the top navigation */
+            .topnav {
+            background-color: #333;
+            overflow: hidden;
+            /*width: 60%;*/
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto 
+            }
+            ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333333;
+            }
+
+            li {
+            float: left;
+            }
+            .nav-link {
+                float: right;
+                position: relative;
+            }
+
+            a.nav-link {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+            }
+            a:hover.nav-link {
+            background-color: #111111;
+            color: blue;
+            }
+            .topnav h3 {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 19px;
+            }
+        </style>
 
     </head>
     <body>
+
+        <div class="topnav">
+            <div class="pull-left"><h3>Git Buckets 24/7 Admin</h3></div>
+            <div class="pull-right"><a class="nav-link" href="/admin">Logout</a></div>
+        </div>
+
+        <% if (alert) { %>
+            <h5 style="color:red"><center><%= alert %></center></h5>
+        <% } %>
+
         <div class="container">
                 <center>
                         <div>
-                          <a href="/addArticle" class="btn btn-success" role="button">Add Article</a>
+                          <a href="/admin/addArticle" class="btn btn-success" role="button">Add Article</a>
                         </div>
                 </center>
                 <h2>Articles</h2>
@@ -47,11 +104,13 @@
                        id="<%=data[i].title %>">
                           Edit
                       </button>
-                        <button type="button" id="<%=data[i].title %>" 
-                          class="delete btn btn-danger" 
-                          value ="<%=data[i].title %>">
+                      <form method="POST" id="<%=i%>" action="/admin/deleteArticle" onsubmit="return confirm('Do you really want to delete this news?');">
+                        <input type="hidden" name="title" value="<%=data[i].title%>"/>
+                        <button type="submit" id="<%=data[i].title %>" 
+                          class="delete btn btn-danger">
                           Delete
                         </button>
+                    </form>
                     </td>
                   </tr>
                 <% } %>
@@ -67,6 +126,13 @@
                     </tr>
                   </tfoot>
                 </table>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#myTable').DataTable();
+                    });
+                </script>
+
                 <!--  Modal Starts-->
                   <div class="modal fade" id="myModal">
                         <div class="modal-dialog">
@@ -76,13 +142,13 @@
                                     <h4 class="modal-title">Modal Heading</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                  
+
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                           <div class="container">
                                     <h2>Edit Articles</h2>
                                     <form action="/edit_article" method="POST" id="edit_article">
-                                      
+
                                       <div class="form-group">
                                         <label for="title">Title:</label>
                                         <input type="text" class="form-control" id="edit_title" placeholder="Enter Title" name="title" required>
@@ -106,17 +172,17 @@
                                     </form>
                                   </div>
                                         </div>
-                
+
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                          <button type="submit" id="edit_table" class="btn btn-primary">Edit</button>
+                                          <button type="submit" id="update_table" class="btn btn-primary">Edit</button>
                                         </div>
-                                  
+
                                       </div>
                                     </div>
                                   </div>
-        <script type="text/javascript" src="../js/delete.js"></script>
+        
         <script type="text/javascript" src="../js/edit.js"></script>
     </body>
 </html>

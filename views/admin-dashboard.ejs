@@ -28,20 +28,21 @@
             li {
             float: left;
             }
-            /*.nav-link {
-                padding-top: 15px;
-            }*/
+            .nav-link {
+                float: right;
+                position: relative;
+            }
 
-            li a {
+            a.nav-link {
             display: block;
             color: white;
             text-align: center;
             padding: 16px;
             text-decoration: none;
             }
-
-            li a:hover {
+            a:hover.nav-link {
             background-color: #111111;
+            color: blue;
             }
             .topnav h3 {
             float: left;
@@ -56,12 +57,41 @@
     <body>
         <div class="topnav">
             <ul>
-                <li><h3>Git Buckets 24/7 Media Admin</h3></li>
+                <li><h3>Update 24/7 Admin</h3></li>
                 <li><a class="nav-link" href="#">NewsForm</a></li>
                 <li><a class="nav-link" href="#">EditNews</a></li>
                 <li><a class="nav-link" href="/admin">Logout</a></li>
               </ul>
         </div>
+
+        <table id="dashboard" class="display">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Published At</th>
+                    <th>Edit/ Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(let i=0; i<newssList.length; i++) {%>
+                        <tr>
+                            <td><%=newssList[i].title%></td>
+                            <td><%=newssList[i].description%></td>
+                            <td><%=newssList[i].publishedAt%></td>
+                            <td>
+                                <button type="submit" class="btn btn-warning">Edit</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                <%};%>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function () {
+                $('#dashboard').DataTable();
+            });
+        </script>
 
 
         

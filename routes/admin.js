@@ -1,13 +1,42 @@
 const express = require("express");
 const Router = express.Router();
 const AdminModel = require("../model/admin");
-//const ProductModel = require("../model/product");
+const NewsModel = require("../model/news");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Config = require("../config")
 
 Router.get("/", (req, res)=>{
     res.render("admin", { alert: "" });
+});
+
+Router.get("/addArticle", (req, res)=>{
+    res.render('add-news');
+});
+
+Router.post("/addArticle", (req, res) => {
+            const News = new NewsModel({
+                title : req.body.title,
+                description : req.body.description,
+                url : req.body.url,
+                img : req.body.img,
+                date : req.body.date
+            })
+            News.save().then(result => {
+                NewsModel.find().then(newss => {
+                    res.render("index", { data: newss, alert: "News added successfully!" });
+                });  
+            }); 
+});
+
+// Delete Selected User
+Router.post('/deleteArticle',(req,res) => {
+    NewsModel.deleteOne({ title: req.body.title }, function (err) {
+        if (err) return res.send(500, err);
+        NewsModel.find().then(newss => {
+            res.render("index", { data: newss, alert: "News deleted successfully!" });
+        });   
+    })
 });
 
 Router.post("/login", (req, res) => {
@@ -22,8 +51,9 @@ Router.post("/login", (req, res) => {
                 const token = jwt.sign({ id : admin._id }, Config.SECRET_KEY, {
                     expiresIn : 86400
                 })
-                AdminModel.find().then(admins => {
-                    res.render("admin-dashboard", { adminsList: admins, token : token });
+                NewsModel.find().then(admins => {
+                    //res.render("admin-dashboard", { adminsList: admins, token : token });
+                    res.render("index", { data: admins, token : token, alert : "" });
                 });  
             } else {
                 res.render('admin', { alert: "Invalid credentials!" });
@@ -51,13 +81,8 @@ Router.post("/", (req, res) => {
     })    
 });
 
-/*Router.get("/list", (req, res) => {
-    UserModel.find().then(users => {
-        res.render("user-list", { usersList: users });
-    });
-});
 
-Router.get("/add", (req, res) => {
+/*Router.get("/add", (req, res) => {
     res.render("add-user", { alert: "" });
 });
 

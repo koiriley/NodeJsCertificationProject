@@ -76,8 +76,8 @@ app.put('/edit',(req,res)=>{
 })
 
 // Opening Edit Article Page
-app.get('/addArticle',(req,res) => {
-    res.render('admin')
+app.get('/admin/addArticle',(req,res) => {
+    res.render('add-news')
 })
 
 MongoClient.connect(mongourl,(err,client) => {

@@ -18,5 +18,8 @@
     "mongoose": "^5.9.9",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
   }
 }
