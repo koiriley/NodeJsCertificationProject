@@ -29,13 +29,29 @@ Router.post("/addArticle", (req, res) => {
             }); 
 });
 
-// Delete Selected User
+// Delete Article
 Router.post('/deleteArticle',(req,res) => {
     NewsModel.deleteOne({ title: req.body.title }, function (err) {
         if (err) return res.send(500, err);
         NewsModel.find().then(newss => {
             res.render("index", { data: newss, alert: "News deleted successfully!" });
         });   
+    })
+});
+
+Router.post('/find', (req,res) => {
+    NewsModel.findOne({ title: req.body.title }, function (err, news) {
+        if (err) return res.send(500, err);
+        res.send(news);
+    })
+});
+
+Router.post('/edit', (req,res) => {
+    NewsModel.findOneAndUpdate({ _id: req.body.id }, req.body, function (err, news) {
+        if (err) return res.send(500, err);
+        NewsModel.find().then(newss => {
+            res.render("index", { data: newss, alert: "News edited successfully!" });
+        });
     })
 });
 

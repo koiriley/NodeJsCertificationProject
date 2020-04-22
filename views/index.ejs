@@ -67,7 +67,7 @@
         </div>
 
         <% if (alert) { %>
-            <h5 style="color:red"><center><%= alert %></center></h5>
+            <h5 id="msg" style="color:red"><center><%= alert %></center></h5>
         <% } %>
 
         <div class="container">
@@ -147,7 +147,7 @@
                                         <div class="modal-body">
                                           <div class="container">
                                     <h2>Edit Articles</h2>
-                                    <form action="/edit_article" method="POST" id="edit_article">
+                                    <form action="/admin/edit" method="POST" id="edit_article">
 
                                       <div class="form-group">
                                         <label for="title">Title:</label>
@@ -169,20 +169,47 @@
                                         <label for="date">Publish Date:</label>
                                         <input type="text" class="form-control" id="edit_date" placeholder="Enter Publish Date" name="date">
                                       </div>
-                                    </form>
                                   </div>
                                         </div>
-
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                          <input type="hidden" name="id" id="edit_id" />
                                           <button type="submit" id="update_table" class="btn btn-primary">Edit</button>
                                         </div>
-
+                                      </form>
                                       </div>
                                     </div>
                                   </div>
         
-        <script type="text/javascript" src="../js/edit.js"></script>
+        <script type="text/javascript">
+          var title;
+          var to_be_edited;
+                  $(document).ready(function() {
+                      $('#myTable').DataTable();
+                      });
+                  // edit data
+                  $('.edit').click(function() {
+                      id = this.id;
+                          $.ajax({
+                              type: 'POST',
+                              url: '/admin/find',
+                              data: {"title":id},
+                              success: function(data){
+                                      to_be_edited = data.title;
+                                      $("#edit_title").attr("value", data.title);
+                                      $("#edit_description").attr("value", data.description);
+                                      $("#edit_url").attr("value", data.url);
+                                      $("#edit_img").attr("value", data.img);
+                                      $("#edit_date").attr("value", data.date);
+                                      $("#edit_id").attr("value", data._id);
+                                      $('#Modal').modal({show: true});
+                                  },
+                              error: function(){
+                                  alert('No data');
+                              }
+                          });
+                      });
+        </script>
     </body>
 </html>
