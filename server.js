@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 
 // Sets up the server
-var server = app.listen(process.env.PORT || 3000, listen);
+var server = app.listen(process.env.PORT || 4000, listen);
 
 // Call back to notify us that the server has started
 function listen() {

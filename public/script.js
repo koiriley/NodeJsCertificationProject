@@ -1,5 +1,5 @@
 // Gets socket from local host
-const socket = io('http://localhost:3000')
+const socket = io('http://localhost:4000')
 // Gets message container
 const messageContainer = document.getElementById('message-container')
 // Gets message form
