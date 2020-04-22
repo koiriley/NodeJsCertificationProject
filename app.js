@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-// Get Data from datbase and display on index
+// Get Data from database and display on index
 app.get('/', (req,res)=>{
     db.collection(col_name).find().toArray((err,result) => {
         if(err) throw err;
@@ -35,7 +35,7 @@ app.post('/addData', (req,res) => {
     res.redirect('/');
 })
 
-// Delete Selected User
+// Delete Selected Article
 app.delete('/delete_article',(req,res) => {
     db.collection(col_name).findOneAndDelete({
         "title":req.body.title
@@ -57,7 +57,7 @@ app.post('/find_by_title',(req,res) => {
 });
 
 // Edit Article
-app.put('/edit',(req,res)=>{
+app.put('/edit_article',(req,res)=>{
     db.collection(col_name)
         .findOneAndUpdate({"title":req.body.title},{
             $set:{
@@ -76,8 +76,8 @@ app.put('/edit',(req,res)=>{
 })
 
 // Opening Edit Article Page
-app.get('/admin/addArticle',(req,res) => {
-    res.render('add-news')
+app.get('/addArticle',(req,res) => {
+    res.render('admin')
 })
 
 MongoClient.connect(mongourl,(err,client) => {
