@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const request = require('request');
-const port = 5400;
+const port = 5000;
 
 const weatherUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Atlanta&mode=json&units=imperial&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29";
 
