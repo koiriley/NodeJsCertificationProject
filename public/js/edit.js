@@ -5,11 +5,11 @@ var to_be_edited;
             });
         // edit data
         $('.edit').click(function() {
-            title= this.id;
+            id= this.id;
                 $.ajax({
                     type: 'POST',
                     url: '/find_by_title',
-                    data: {"title":title},
+                    data: {"title":id},
                     success: function(data){
                             to_be_edited = data[0].title;
                             $("#edit_title").attr("value", data[0].title);
@@ -32,7 +32,7 @@ var to_be_edited;
             // update data
                   $(function(){
                       $('#edit_table').on('click', function(e){
-                        console.log('x');
+                        console.log('i am indsd');
                         var data = $('#edit_article').serialize();
                         debugger;
                         console.log(JSON.stringify(data));
@@ -42,7 +42,7 @@ var to_be_edited;
                           type:'PUT',
                           data : data,
                           success: function(data){
-                            console.log('y');
+                            console.log('i am googleapis');
                             window.location.reload()
                         },
                         error: function(){
