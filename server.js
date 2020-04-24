@@ -1,35 +1,21 @@
-const application = require("./application.js");
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+const ejs = require("ejs");
 const mongoose = require("mongoose");
-const db = mongoose.connect("mongodb://localhost:27017/mediaDB", { useNewUrlParser: true })
+const db = mongoose.connect("mongodb://localhost:27017/mediaDB", { useNewUrlParser: true });
+const user = require("./routes/admin");
+const cookieParser = require('cookie-parser');
 
-var server = application.listen(3001)
+app.set("view engine", "ejs");
 
-// Requires Socket.io module on server
-const io = require('socket.io').listen(server);
+app.use(cookieParser())
+app.use(bodyParser.json({ type : "application/json" }))
+app.use(bodyParser.text({ type : "text/html" }))
+app.use(bodyParser.urlencoded({ extended : true }))
 
-// Array of users within chat
-const users = {}
+app.use("/admin", user);
 
-// Creates socket for each user that connects to website
-io.on('connection', socket => {
-  // Stores new users created 
-  socket.on('new-user', name => {
-    users[socket.id] = name
-    // Broadcasts message that user connected to chat
-    socket.broadcast.emit('user-connected', name)
-  })
-  // Stores chat messages
-  socket.on('send-chat-message', message => {
-    // Broadcasts chat messages
-    socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
-  })
-  // Removes users from chat
-  socket.on('disconnect', () => {
-    // Broadcast message that a user connected from chat 
-    socket.broadcast.emit('user-disconnected', users[socket.id])
-    // Deletes user from array
-    delete users[socket.id]
-  })
-})
-
-module.exports = application
+app.listen(3000, ()=>{
+    console.log("Server Started...")
+});

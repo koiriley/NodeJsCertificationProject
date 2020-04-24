@@ -67,57 +67,32 @@
 
 <div class="container">
     <br>
- <!-- <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-
-  <a class="navbar-brand" href="#">Dashboard</a>
-
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
  
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/new">Add new</a>
-      </li>
-    </ul>
-  </div> 
-</nav>-->
   <h2>Add Article</h2>
   <form action="/admin/addArticle" method="POST">
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" class="form-control" id="title" placeholder="Enter Title" name="title" required>
+      <input type="text" required class="form-control" id="title" placeholder="Enter Title" name="title" required>
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
-      <input type="text" class="form-control" id="description" placeholder="Enter Description" name="description">
+      <input type="text" required class="form-control" id="description" placeholder="Enter Description" name="description">
     </div>
     <div class="form-group">
       <label for="url">URL:</label>
-      <input type="text" class="form-control" id="url" placeholder="Enter URL" name="url">
+      <input type="URL" required class="form-control" id="url" placeholder="Enter URL" name="url">
     </div>
     <div class="form-group">
       <label for="img">IMG URL:</label>
-      <input type="text" class="form-control" id="img" placeholder="Enter IMG URL" name="img">
+      <input type="URL" required class="form-control" id="img" placeholder="Enter IMG URL" name="img">
     </div>
     <div class="form-group">
       <label for="date">Publish Date:</label>
-      <input type="text" class="form-control" id="date" placeholder="Enter Publish Date" name="date">
+      <input type="date" required class="form-control" id="date" placeholder="Enter Publish Date" name="date">
     </div>
-    <button type="submit" class="btn btn-primary">Add</button>
-    <button class="btn btn-success" onclick="goBack()">Cancel</button>
+    <button type="submit" required class="btn btn-primary">Add</button>
+    <a class="btn btn-success" href="/admin/login" class="button">Cancel</a>
   </form>
-  <script>
-    function goBack() {
-      window.history.back();
-    }
-  </script>
 </div>
 
 </body>

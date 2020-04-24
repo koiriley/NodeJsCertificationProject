@@ -63,14 +63,14 @@
 
         <div class="topnav">
             <div class="pull-left"><h3>Git Buckets 24/7 Admin</h3></div>
-            <div class="pull-right"><a class="nav-link" href="/admin">Logout</a></div>
+            <div class="pull-right"><a class="nav-link" href="/admin/logout">Logout</a></div>
         </div>
 
         <% if (alert) { %>
-            <h5 style="color:red"><center><%= alert %></center></h5>
+            <h5 id="msg" style="color:red"><center><%= alert %></center></h5>
         <% } %>
 
-        <div class="container">
+        <div class="container-fluid">
                 <center>
                         <div>
                           <a href="/admin/addArticle" class="btn btn-success" role="button">Add Article</a>
@@ -78,7 +78,7 @@
                 </center>
                 <h2>Articles</h2>
                 <div class="table-responsive">
-                  <table class="table table-hover table-striped" id="myTable">
+                  <table class="table table-hover table-bordered table-striped" width="100%" id="myTable">
                     <caption>List of Articles</caption>
                   <thead class = "thead-dark">
                     <tr>
@@ -147,42 +147,69 @@
                                         <div class="modal-body">
                                           <div class="container">
                                     <h2>Edit Articles</h2>
-                                    <form action="/edit_article" method="POST" id="edit_article">
+                                    <form action="/admin/edit" method="POST" id="edit_article">
 
                                       <div class="form-group">
                                         <label for="title">Title:</label>
-                                        <input type="text" class="form-control" id="edit_title" placeholder="Enter Title" name="title" required>
+                                        <input type="text" required class="form-control" id="edit_title" placeholder="Enter Title" name="title" required>
                                       </div>
                                       <div class="form-group">
                                         <label for="description">Description:</label>
-                                        <input type="text" class="form-control" id="edit_description" placeholder="Enter Description" name="description">
+                                        <input type="text" required class="form-control" id="edit_description" placeholder="Enter Description" name="description">
                                       </div>
                                       <div class="form-group">
                                         <label for="url">URL:</label>
-                                        <input type="text" class="form-control" id="edit_url" placeholder="Enter URL" name="url">
+                                        <input type="URL" required class="form-control" id="edit_url" placeholder="Enter URL" name="url">
                                       </div>
                                       <div class="form-group">
                                         <label for="img">IMG:</label>
-                                        <input type="text" class="form-control" id="edit_img" placeholder="Enter IMG URL" name="img">
+                                        <input type="URL" required class="form-control" id="edit_img" placeholder="Enter IMG URL" name="img">
                                       </div>
                                       <div class="form-group">
                                         <label for="date">Publish Date:</label>
-                                        <input type="text" class="form-control" id="edit_date" placeholder="Enter Publish Date" name="date">
+                                        <input type="date" required class="form-control" id="edit_date" placeholder="Enter Publish Date" name="date">
                                       </div>
-                                    </form>
                                   </div>
                                         </div>
-
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                          <input type="hidden" name="id" id="edit_id" />
                                           <button type="submit" id="update_table" class="btn btn-primary">Edit</button>
                                         </div>
-
+                                      </form>
                                       </div>
                                     </div>
                                   </div>
         
-        <script type="text/javascript" src="../js/edit.js"></script>
+        <script type="text/javascript">
+          var title;
+          var to_be_edited;
+                  $(document).ready(function() {
+                      $('#myTable').DataTable();
+                  });
+                  // edit data
+                  $('.edit').click(function() {
+                      id = this.id;
+                          $.ajax({
+                              type: 'POST',
+                              url: '/admin/find',
+                              data: {"title":id},
+                              success: function(data){
+                                      to_be_edited = data.title;
+                                      $("#edit_title").attr("value", data.title);
+                                      $("#edit_description").attr("value", data.description);
+                                      $("#edit_url").attr("value", data.url);
+                                      $("#edit_img").attr("value", data.img);
+                                      $("#edit_date").attr("value", data.date);
+                                      $("#edit_id").attr("value", data._id);
+                                      $('#Modal').modal({show: true});
+                                  },
+                              error: function(){
+                                  alert('No data');
+                              }
+                          });
+                      });
+        </script>
     </body>
 </html>

@@ -6,12 +6,13 @@ Shaheda Choudhury
 Jonathan Ross
 Koi Riley
 
-**USER APP**
+**ADMIN APP**
 
-To start User App:
-nodemon server.js or npm run dev
+To start Admin App:
+npm run dev
 
 MongoDB:
 -mediaDB database
 -news collection - for articles storage
+-admins collection - for admin users storage
 -example articles data is in articles.json -> import json file to MongoDB

@@ -28,7 +28,7 @@ var to_be_edited;
 
 
 
-            
+
             // update data
                   $(function(){
                       $('#edit_table').on('click', function(e){
